@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-console */
 /* global importScripts, firebase */
 importScripts('https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.2.1/firebase-messaging.js');
@@ -83,9 +81,13 @@ messaging.onBackgroundMessage((payload) => {
 self.addEventListener('notificationclick', (event) => {
   // console.log('[firebase-messaging-sw.js] notificationclick ', event); // debug info
 
-  self.clients.openWindow(
-    event.notification.click_action || event.currentTarget.origin,
-  );
+  // click_action described at https://github.com/BrunoS3D/firebase-messaging-sw.js#click-action
+  if (event.notification.data && event.notification.data.click_action) {
+    self.clients.openWindow(event.notification.data.click_action);
+  } else {
+    self.clients.openWindow(event.currentTarget.origin);
+  }
+  
   // close notification after click
   event.notification.close();
 });
