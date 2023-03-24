@@ -3,7 +3,7 @@ importScripts('https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.2.1/firebase-messaging.js');
 
 console.log('===========================================');
-console.log('FIREBASE SERVICE WORKER CARREGADO'); // debug info
+console.log('FIREBASE SERVICE WORKER LOADED');
 console.log('===========================================');
 
 firebase.initializeApp({
@@ -65,7 +65,7 @@ self.addEventListener('push', (e) => {
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  // console.log('[firebase-messaging-sw.js] Received background message ', payload); // debug info
+  // console.log('[firebase-messaging-sw.js] Received background message ', payload);
 
   const { title, body, icon, ...restPayload } = payload.data;
 
@@ -79,7 +79,7 @@ messaging.onBackgroundMessage((payload) => {
 });
 
 self.addEventListener('notificationclick', (event) => {
-  // console.log('[firebase-messaging-sw.js] notificationclick ', event); // debug info
+  // console.log('[firebase-messaging-sw.js] notificationclick ', event);
 
   // click_action described at https://github.com/BrunoS3D/firebase-messaging-sw.js#click-action
   if (event.notification.data && event.notification.data.click_action) {
