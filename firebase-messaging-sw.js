@@ -67,11 +67,12 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
   // console.log('[firebase-messaging-sw.js] Received background message ', payload);
 
-  const { title, body, icon, ...restPayload } = payload.data;
+  const { title, body, icon, badge, ...restPayload } = payload.data;
 
   const notificationOptions = {
     body,
     icon: icon || '/icons/firebase-logo.png', // path to your "fallback" firebase notification logo
+    badge: badge || '/icons/firebase-logo.png', // path to your "fallback" notification badge (Instead of the default bell)
     data: restPayload,
   };
 
